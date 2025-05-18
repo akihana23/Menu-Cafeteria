@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Classique</title>
+    <link rel="stylesheet" href="CSS/Style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Botão do Carrinho (fixo no topo) -->
+    <button id="carrinhoBtn" class="carrinho-btn topo">
+        🛒 <span id="carrinhoContador"></span>
+    </button>
+
+<!-- Modal do carrinho (fora do botão!) -->
+<div id="carrinhoModal" class="carrinho-modal">
+    <div class="carrinho-conteudo">
+        <h3>Seu Carrinho</h3>
+        <div id="carrinhoItens"></div>
+        <div class="carrinho-total">
+            <strong>Total: R$ <span id="carrinhoTotal">0,00</span></strong>
+        </div>
+        <div class="carrinho-botoes">
+            <button id="finalizarCompra" class="btn-hero">Finalizar Compra</button>
+            <button id="fecharCarrinho" class="btn-cancelar">Fechar</button>
+        </div>
+    </div>
+</div>
+
+    <!--Hero Section-->
+    <div class="hero-image">
+        <div class="hero-text">
+          <h1>Café Classique</h1>
+          <p>Venha conhecer nossos delicioso produtos</p>
+          <a href="#Cardapio" class="btn-hero">Ver Cardapio</a>
+        </div>
+      </div>
+<section id="destaques" class="destaques-container">
+    <h2>Nossos Destaques</h2>
+    <div class="cards-wrapper">
+        <!-- Card 1 -->
+        <div class="card-destaque">
+          <div class="card-destaque">
+            <div class="badge-mais-vendido">Mais vendido!!</div>
+            <div class="card-img" style="background-image: url('./imagens/cafe-especial.jfif');"></div>
+              <div class="card-content">
+                  <h3>Café Especial</h3>
+                  <p>Blend exclusivo com notas de chocolate e frutas vermelhas.</p>
+                  <span class="preco">R$ 12,90</span>
+                  <div class="avaliacao">
+                    ★★★★★ <span>(50)</span>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="card-destaque">
+            <div class="card-img" style="background-image: url('./imagens/croissant.jpg');"></div>
+            <div class="card-content">
+                <h3>Croissant Artesanal</h3>
+                <p>Feito na hora com manteiga francesa.</p>
+                <span class="preco">R$ 9,50</span>
+                <div class="avaliacao">
+                  ★★★★☆ <span>(30)</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="card-destaque">
+            <div class="card-img" style="background-image: url('./imagens/bolo.png');"></div>
+            <div class="card-content">
+                <h3>Bolo do Dia</h3>
+                <p>Opção variada diariamente. Hoje: Red Velvet.</p>
+                <span class="preco">R$ 8,90</span>
+                <div class="avaliacao">
+                   ★★★★☆ <span>(24)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <section id="Cardapio" class="menu-section">
+    <h2>Cardápio Completo</h2>
+    
+    <div class="menu-categories">
+        <!-- Abas de categorias -->
+        <button class="category-btn active" data-category="cafes">Cafés</button>
+        <button class="category-btn" data-category="doces">Doces</button>
+        <button class="category-btn" data-category="salgados">Salgados</button>
+    </div>
+    
+    <div class="menu-items">
+        <!-- Cafés -->
+        <div class="menu-category" id="cafes">
+            <div class="menu-item">
+                <div class="item-info">
+                    <h3>Expresso Clássico</h3>
+                    <p>Café puro e intenso, servido em xícara pequena</p>
+                </div>
+                <span class="item-price">R$ 7,90</span>
+                <button onclick="adicionarAoCarrinho('Expresso Clássico', 7.90)" class="btn-add">Adicionar</button>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-info">
+                    <h3>Cappuccino Italiano</h3>
+                    <p>Expresso com leite vaporizado e espuma de leite</p>
+                </div>
+                <span class="item-price">R$ 10,00</span>
+                <button onclick="adicionarAoCarrinho('Cappuccino Italiano', 10.00)" class="btn-add">Adicionar</button>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-info">
+                    <h3>Latte Caramelizado</h3>
+                    <p>Expresso com leite e calda de caramelo artesanal</p>
+                </div>
+                <span class="item-price">R$ 14,50</span>
+                <button onclick="adicionarAoCarrinho('Latte Caramelizado', 14.50)" class="btn-add">Adicionar</button>
+            </div>
+
+             <div class="menu-item">
+                <div class="item-info">
+                    <h3>Café Especial</h3>
+                    <p>Blend exclusivo com notas de chocolate e frutas vermelhas.</p>
+                </div>
+                <span class="item-price">R$ 12,90</span>
+                <button onclick="adicionarAoCarrinho('Café Especial', 12.90)" class="btn-add">Adicionar</button>
+             </div>
+        </div>
+        
+        <!-- Doces (inicialmente oculto) -->
+        <div class="menu-category" id="doces">
+            <div class="menu-item">
+                <div class="item-info">
+                    <h3>Croissant de Chocolate</h3>
+                    <p>Recheado com chocolate belga derretido</p>
+                </div>
+                <span class="item-price">R$ 9,90</span>
+                <button onclick="adicionarAoCarrinho('Croissant de Chocolate', 9.90)" class="btn-add">Adicionar</button>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-info">
+                    <h3>Cheesecake de Frutas Vermelhas</h3>
+                    <p>Fatia generosa com calda caseira</p>
+                </div>
+                <span class="item-price">R$ 15,00</span>
+                <button onclick="adicionarAoCarrinho('Cheesecake de Frutas Vermelhas', 15.00)" class="btn-add">Adicionar</button>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-info">
+                    <h3>Bolo Red Velvet</h3>
+                    <p>bolo conhecido pela sua cor vermelha intensa e sabor levemente a chocolate</p>
+                </div>
+                <span class="item-price">R$ 12,50</span>
+                <button onclick="adicionarAoCarrinho('Bolo Red Velvet', 12.50)" class="btn-add">Adicionar</button>
+            </div>
+        </div>
+        
+        <!-- Salgados (inicialmente oculto) -->
+        <div class="menu-category" id="salgados">
+            <div class="menu-item">
+                <div class="item-info">
+                    <h3>Sanduíche Natural</h3>
+                    <p>Pão integral com frango desfiado e cream cheese</p>
+                </div>
+                <span class="item-price">R$ 16,90</span>
+                <button onclick="adicionarAoCarrinho('Sanduíche Natural', 16.90)" class="btn-add">Adicionar</button>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-info">
+                    <h3>Quiche Lorraine</h3>
+                    <p>Torta salgada com bacon e queijo gruyère</p>
+                </div>
+                <span class="item-price">R$ 18,50</span>
+                <button onclick="adicionarAoCarrinho('Torta salgada com bacon e queiho gruyère', 18.50)" class="btn-add">Adicionar</button>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-info">
+                    <h3>Croissant Artesanal</h3>
+                    <p>Feito na hora com manteiga francesa.</p>
+                </div>
+                <span class="item-price">R$ 8,50</span>
+                <button onclick="adicionarAoCarrinho('Croissant Artesanal', 8.50)" class="btn-add">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</section>
+</section>
+<section>
+<footer class="footer">
+    <button id="btnSobre" class="btn-sobre">Sobre Nós ▼</button>
+    <div id="sobreContainer" class="sobre-container">
+        <p>Fundada em 2023, a Café Classique nasceu da paixão por cafés especiais e momentos memoráveis. Nossa missão é oferecer uma experiência única, combinando grãos selecionados, atendimento acolhedor e um ambiente inspirador.</p>
+    </div>
+    <div class="copyright">
+        © 2023 Café Classique - Todos os direitos reservados
+    </div>
+</footer>
+    <!-- MODAL DO CARRINHO-->
+<div id="carrinhoModal" class="carrinho-modal">
+    <div class="carrinho-conteudo">
+        <h3>Seu Carrinho</h3>
+        <div id="carrinhoItens"></div>
+        <div class="carrinho-total">
+            <strong>Total: R$ <span id="carrinhoTotal">0,00</span></strong>
+        </div>
+        <div class="carrinho-botoes">
+            <button id="finalizarCompra" class="btn-hero">Finalizar Compra</button>
+            <button id="fecharCarrinho" class="btn-cancelar">Fechar</button>
+        </div>
+    </div>
+</div>
+<script>
+        // Carrinho de Compras - Versão Corrigida
+document.addEventListener('DOMContentLoaded', function() {
+    // Elementos UI
+    const carrinhoBtn = document.getElementById('carrinhoBtn');
+    const carrinhoModal = document.getElementById('carrinhoModal');
+    const carrinhoItens = document.getElementById('carrinhoItens');
+    const carrinhoContador = document.getElementById('carrinhoContador');
+    const carrinhoTotal = document.getElementById('carrinhoTotal');
+    const finalizarCompra = document.getElementById('finalizarCompra');
+    const fecharCarrinho = document.getElementById('fecharCarrinho');
+
+    // Dados
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    // Atualizar visualização
+    const atualizarCarrinho = () => {
+        carrinhoItens.innerHTML = '';
+        let total = 0;
+        
+        carrinho.forEach((item, index) => {
+            total += item.preco;
+            carrinhoItens.innerHTML += `
+                <div class="carrinho-item">
+                    <div>
+                        <h4>${item.nome}</h4>
+                        <p>R$ ${item.preco.toFixed(2)}</p>
+                    </div>
+                    <button onclick="removerDoCarrinho(${index})">✕</button>
+                </div>
+            `;
+        });
+        
+        carrinhoTotal.textContent = total.toFixed(2);
+        carrinhoContador.textContent = carrinho.length;
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    };
+
+    // Funções globais
+    window.adicionarAoCarrinho = function(nome, preco) {
+        carrinho.push({ nome, preco: Number(preco) });
+        atualizarCarrinho();
+        console.log('Item adicionado:', nome, preco); // Debug
+    };
+
+    window.removerDoCarrinho = function(index) {
+        carrinho.splice(index, 1);
+        atualizarCarrinho();
+    };
+
+    // Eventos
+    carrinhoBtn.addEventListener('click', () => {
+        carrinhoModal.style.display = 'flex';
+    });
+
+    fecharCarrinho.addEventListener('click', () => {
+        carrinhoModal.style.display = 'none';
+    });
+
+    finalizarCompra.addEventListener('click', () => {
+        if (carrinho.length === 0) {
+            alert('Carrinho vazio!');
+            return;
+        }
+        
+        alert(`Compra finalizada! Total: R$ ${carrinhoTotal.textContent}`);
+        carrinho = [];
+        atualizarCarrinho();
+        carrinhoModal.style.display = 'none';
+    });
+
+    // Inicialização
+    atualizarCarrinho();
+    console.log('Carrinho inicializado com', carrinho.length, 'itens');
+});
+
+// Abas do Cardápio (mantido separado)
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const menuCategories = document.querySelectorAll('.menu-category');
+    
+    menuCategories.forEach((category, index) => {
+        if(index !== 0) category.style.display = 'none';
+    });
+
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            menuCategories.forEach(category => {
+                category.style.display = 'none';
+            });
+            
+            const categoryId = this.getAttribute('data-category');
+            document.getElementById(categoryId).style.display = 'block';
+        });
+    });
+});
+</script>
+</section>
+</body>
+</html>
