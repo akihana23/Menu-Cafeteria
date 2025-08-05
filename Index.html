@@ -12,8 +12,8 @@
     <button id="carrinhoBtn" class="carrinho-btn topo">
         🛒 <span id="carrinhoContador"></span>
     </button>
-
-<!-- Modal do carrinho (fora do botão!) -->
+    
+<!-- Modal do carrinho -->
 <div id="carrinhoModal" class="carrinho-modal">
     <div class="carrinho-conteudo">
         <h3>Seu Carrinho</h3>
@@ -220,88 +220,88 @@
     </div>
 </div>
 <script>
-        // Carrinho de Compras - Versão Corrigida
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos UI
-    const carrinhoBtn = document.getElementById('carrinhoBtn');
-    const carrinhoModal = document.getElementById('carrinhoModal');
-    const carrinhoItens = document.getElementById('carrinhoItens');
-    const carrinhoContador = document.getElementById('carrinhoContador');
-    const carrinhoTotal = document.getElementById('carrinhoTotal');
-    const finalizarCompra = document.getElementById('finalizarCompra');
-    const fecharCarrinho = document.getElementById('fecharCarrinho');
+    // ========== CARRINHO ==========
+    const carrinhoElements = {
+        btn: document.getElementById('carrinhoBtn'),
+        modal: document.getElementById('carrinhoModal'),
+        items: document.getElementById('carrinhoItens'),
+        counter: document.getElementById('carrinhoContador'),
+        total: document.getElementById('carrinhoTotal'),
+        checkout: document.getElementById('finalizarCompra'),
+        close: document.getElementById('fecharCarrinho')
+    };
 
-    // Dados
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-    // Atualizar visualização
     const atualizarCarrinho = () => {
-        carrinhoItens.innerHTML = '';
-        let total = 0;
-        
-        carrinho.forEach((item, index) => {
-            total += item.preco;
-            carrinhoItens.innerHTML += `
-                <div class="carrinho-item">
-                    <div>
-                        <h4>${item.nome}</h4>
-                        <p>R$ ${item.preco.toFixed(2)}</p>
-                    </div>
-                    <button onclick="removerDoCarrinho(${index})">✕</button>
+        carrinhoElements.items.innerHTML = carrinho.map((item, index) => `
+            <div class="carrinho-item">
+                <div>
+                    <h4>${item.nome}</h4>
+                    <p>R$ ${item.preco.toFixed(2)}</p>
                 </div>
-            `;
-        });
-        
-        carrinhoTotal.textContent = total.toFixed(2);
-        carrinhoContador.textContent = carrinho.length;
+                <button data-index="${index}">✕</button>
+            </div>
+        `).join('');
+
+        const total = carrinho.reduce((sum, item) => sum + item.preco, 0);
+        carrinhoElements.total.textContent = total.toFixed(2);
+        carrinhoElements.counter.textContent = carrinho.length;
         localStorage.setItem('carrinho', JSON.stringify(carrinho));
     };
 
-    // Funções globais
-    window.adicionarAoCarrinho = function(nome, preco) {
-        carrinho.push({ nome, preco: Number(preco) });
-        atualizarCarrinho();
-        console.log('Item adicionado:', nome, preco); // Debug
-    };
-
-    window.removerDoCarrinho = function(index) {
-        carrinho.splice(index, 1);
-        atualizarCarrinho();
-    };
-
-    // Eventos
-    carrinhoBtn.addEventListener('click', () => {
-        carrinhoModal.style.display = 'flex';
+    // Eventos do carrinho
+    carrinhoElements.btn.addEventListener('click', () => {
+        carrinhoElements.modal.style.display = 'flex';
     });
 
-    fecharCarrinho.addEventListener('click', () => {
-        carrinhoModal.style.display = 'none';
+    carrinhoElements.close.addEventListener('click', () => {
+        carrinhoElements.modal.style.display = 'none';
     });
 
-    finalizarCompra.addEventListener('click', () => {
-        if (carrinho.length === 0) {
-            alert('Carrinho vazio!');
-            return;
-        }
-        
-        alert(`Compra finalizada! Total: R$ ${carrinhoTotal.textContent}`);
+    carrinhoElements.checkout.addEventListener('click', () => {
+        if (carrinho.length === 0) return alert('Carrinho vazio!');
+        alert(`Compra finalizada! Total: R$ ${carrinhoElements.total.textContent}`);
         carrinho = [];
         atualizarCarrinho();
-        carrinhoModal.style.display = 'none';
+        carrinhoElements.modal.style.display = 'none';
     });
 
-    // Inicialização
-    atualizarCarrinho();
-    console.log('Carrinho inicializado com', carrinho.length, 'itens');
-});
+    document.addEventListener('click', (e) => {
+        if (e.target.matches('.carrinho-item button')) {
+            const index = e.target.getAttribute('data-index');
+            carrinho.splice(index, 1);
+            atualizarCarrinho();
+        }
+    });
 
-// Abas do Cardápio (mantido separado)
-document.addEventListener('DOMContentLoaded', function() {
+    window.adicionarAoCarrinho = (nome, preco) => {
+        carrinho.push({ nome, preco: Number(preco) });
+        atualizarCarrinho();
+    };
+
+    // ========== SOBRE NÓS ==========
+    const sobreBtn = document.getElementById('btnSobre');
+    const sobreContainer = document.getElementById('sobreContainer');
+
+    if (sobreBtn && sobreContainer) {
+        sobreBtn.addEventListener('click', () => {
+            sobreContainer.classList.toggle('visible');
+            sobreBtn.innerHTML = sobreContainer.classList.contains('visible') 
+                ? 'Sobre Nós ▲' 
+                : 'Sobre Nós ▼';
+        });
+    } else {
+        console.error('Elementos do "Sobre Nós" não encontrados!');
+    }
+
+    // ========== CARDÁPIO ==========
     const categoryBtns = document.querySelectorAll('.category-btn');
     const menuCategories = document.querySelectorAll('.menu-category');
-    
+
     menuCategories.forEach((category, index) => {
-        if(index !== 0) category.style.display = 'none';
+        if (index !== 0) category.style.display = 'none';
     });
 
     categoryBtns.forEach(btn => {
@@ -317,6 +317,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById(categoryId).style.display = 'block';
         });
     });
+
+    // Inicialização
+    atualizarCarrinho();
 });
 </script>
 </section>
